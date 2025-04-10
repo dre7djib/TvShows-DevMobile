@@ -49,6 +49,16 @@ object NewsModule {
     @Singleton
     fun provideShowDetailsRepository(apiService: ShowDetailsService): ShowDetailsRepository  {
         return ShowDetailsRepositoryImpl(apiService)
+    }
 
+    @Provides
+    @Singleton
+    fun provideShowDetailsService(): ShowDetailsService {
+        return Retrofit
+            .Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(ShowDetailsService::class.java)
     }
 }
