@@ -12,7 +12,7 @@ class ShowDetailsRepositoryImpl @Inject constructor(
     private val service: ShowDetailsService
 ) : ShowDetailsRepository {
     // @RequiresApi(Build.VERSION_CODES.O)
-    override suspend fun getShowDetails() : ShowDetailsResponse {
-        return service.getShowDetails(29560).toShowDetails()
+    override suspend fun getShowDetails(showId: Int) : ShowDetailsResponse {
+        return service.getShowDetails(showId).toShowDetails()
     }
 }

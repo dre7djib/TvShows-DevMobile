@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi
 import java.time.LocalDate
 import com.google.gson.annotations.SerializedName
 import com.ynov.tvshows.show_details.domain.model.ShowDetailsResponse
+import java.time.format.DateTimeParseException
 
 data class showDetailsDto(
     @SerializedName("id")
@@ -38,11 +39,23 @@ data class showDetailsDto(
 // @RequiresApi(Build.VERSION_CODES.O)
 fun showDetailsDto.toShowDetails(): ShowDetailsResponse {
 
+    val safeStartDate = try {
+        if (start_date.isNotBlank()) LocalDate.parse(start_date) else null
+    } catch (e: DateTimeParseException) {
+        null
+    }
+
+    val safeEndDate = try {
+        if (end_date.isNotBlank()) LocalDate.parse(end_date) else null
+    } catch (e: DateTimeParseException) {
+        null
+    }
+
     return ShowDetailsResponse(
         id = id,
-        name = name,
-        description = description,
-        description_source = description_source,
+        name = name ?: "Nom inconnu",  // Valeur par défaut si null
+        description = description ?: "Description inconnue",  // Valeur par défaut si null
+        description_source = description_source ?: "Source inconnue",  // Valeur par défaut si null
         start_date = LocalDate.parse(start_date),
         end_date = LocalDate.parse(end_date),
         country = country,

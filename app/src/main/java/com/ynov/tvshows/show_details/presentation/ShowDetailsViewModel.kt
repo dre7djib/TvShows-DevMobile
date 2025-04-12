@@ -1,5 +1,6 @@
 package com.ynov.tvshows.show_details.presentation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ynov.tvshows.show_details.domain.model.ShowDetailsResponse
@@ -21,16 +22,16 @@ class ShowDetailsViewModel @Inject constructor(
     private val _state : MutableStateFlow<ShowDetailsState> = MutableStateFlow(ShowDetailsState())
     val state : StateFlow<ShowDetailsState> = _state
 
-    fun getShowDetails() = viewModelScope.launch(Dispatchers.IO) {
+    fun getShowDetails(showId: Int) = viewModelScope.launch(Dispatchers.IO) {
 
-        useCase().collectLatest { showDetailsState ->
+        useCase(showId).collectLatest { showDetailsState ->
             when(showDetailsState) {
                 is Resource.Success -> {
                     _state.value = ShowDetailsState(showDetails = showDetailsState.data)
                 }
                 is Resource.Error -> {
-                    _state.value = ShowDetailsState(error = "An unexpected error occured")
-                }
+                    Log.e("ShowDetailsViewModel", "Error loading show details", showDetailsState.message.let { Exception(it) })
+                    _state.value = ShowDetailsState(error = showDetailsState.message ?: "An unexpected error occured")                }
                 is Resource.Loading -> {
                     _state.value = ShowDetailsState(isLoading = true)
                     }

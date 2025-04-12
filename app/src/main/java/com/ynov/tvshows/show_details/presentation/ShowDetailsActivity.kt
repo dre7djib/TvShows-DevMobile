@@ -12,7 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ShowDetailsActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val id = intent.getStringExtra("showId")
+        val id = intent.getIntExtra("showId", -1)
         enableEdgeToEdge()
         setContent {
             TvShowsTheme {

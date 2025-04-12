@@ -1,6 +1,7 @@
 package com.ynov.tvshows.show_details.data.dto
 
 import com.ynov.tvshows.show_details.domain.model.ShowDetailsResponse
+import java.time.LocalDate
 import java.util.Date
 
 data class ShowDetailsResponse(
@@ -8,8 +9,8 @@ data class ShowDetailsResponse(
     val name : String,
     val description : String,
     val description_source : String,
-    val start_date : Date,
-    val end_date : Date,
+    val start_date : LocalDate?,
+    val end_date : LocalDate?,
     val country : String,
     val status : String,
     val average_rating : Double,
