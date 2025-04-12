@@ -2,6 +2,7 @@ package com.ynov.tvshows.most_popular.presentation.components
 
 
 import android.content.Intent
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -40,7 +41,8 @@ fun MostPopularItem(
             .wrapContentHeight()
             .clickable {
                 val intent = Intent(context, ShowDetailsActivity::class.java)
-                intent.putExtra("showId", tvShow.id);
+                Log.d("tvShowItemInMostPopular", "tvShow: ${tvShow}")
+                intent.putExtra("showId", tvShow.permalink);
                 context.startActivity(intent)
             },
         colors = CardDefaults.cardColors(

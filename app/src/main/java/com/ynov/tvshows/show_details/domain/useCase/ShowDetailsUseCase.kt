@@ -15,10 +15,12 @@ class ShowDetailsUseCase @Inject constructor(
     private val repository: ShowDetailsRepository
 ){
 
-    operator fun invoke(showId: Int): Flow<Resource<ShowDetailsResponse>> = flow {
+    operator fun invoke(showId: String): Flow<Resource<ShowDetailsResponse>> = flow {
+        Log.d("ShowDetailsUseCase", "Fetching show details for showId from use case: $showId")
         emit(Resource.Loading())
         try {
             val response = repository.getShowDetails(showId)
+            Log.d("API Response", "Raw response: $response")
             emit(Resource.Success(response))
         } catch (e: Exception) {
             emit(Resource.Error(e.message ?: "Unknown error"))

@@ -22,15 +22,16 @@ class ShowDetailsViewModel @Inject constructor(
     private val _state : MutableStateFlow<ShowDetailsState> = MutableStateFlow(ShowDetailsState())
     val state : StateFlow<ShowDetailsState> = _state
 
-    fun getShowDetails(showId: Int) = viewModelScope.launch(Dispatchers.IO) {
-
+    fun getShowDetails(showId: String) = viewModelScope.launch(Dispatchers.IO) {
+        Log.d("ShowDetailsViewModel", "Fetching show details for showId: $showId")
         useCase(showId).collectLatest { showDetailsState ->
             when(showDetailsState) {
                 is Resource.Success -> {
+                    Log.d("ShowDetailsViewModel", "Data received: ${showDetailsState.data}")
                     _state.value = ShowDetailsState(showDetails = showDetailsState.data)
                 }
                 is Resource.Error -> {
-                    Log.e("ShowDetailsViewModel", "Error loading show details", showDetailsState.message.let { Exception(it) })
+                    Log.e("ShowDetailsViewModel", "Error loading show details: ${showDetailsState.message}")
                     _state.value = ShowDetailsState(error = showDetailsState.message ?: "An unexpected error occured")                }
                 is Resource.Loading -> {
                     _state.value = ShowDetailsState(isLoading = true)

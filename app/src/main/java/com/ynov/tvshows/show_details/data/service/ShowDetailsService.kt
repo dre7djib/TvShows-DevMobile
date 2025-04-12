@@ -9,6 +9,6 @@ interface ShowDetailsService {
 
     @GET(Constants.SHOW_DETAILS)
     suspend fun getShowDetails(
-        @Query("q") showId: Int): showDetailsDto
+        @Query("q") showId: String): showDetailsDto
 
 }

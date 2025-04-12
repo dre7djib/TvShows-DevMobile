@@ -22,19 +22,19 @@ data class ShowDetailsResponse(
 
 fun ShowDetailsResponse.toShowDetails(): ShowDetailsResponse{
     return ShowDetailsResponse(
-        id = id,
-        name = name,
-        description = description,
-        description_source = description_source,
-        start_date = start_date,
-        end_date = end_date,
-        country = country,
-        status = status,
-        average_rating = average_rating,
-        rating_count = rating_count,
-        genres = genres,
-        image_path = image_path,
-        pictures = pictures
+        id = this.id,
+        name = this.name,
+        description = this.description,
+        description_source = this.description_source,
+        start_date = this.start_date,
+        end_date = this.end_date,
+        country = this.country,
+        status = this.status,
+        average_rating = this.average_rating,
+        rating_count = this.rating_count,
+        genres = this.genres,
+        image_path = this.image_path,
+        pictures = this.pictures
     )
 
 }
